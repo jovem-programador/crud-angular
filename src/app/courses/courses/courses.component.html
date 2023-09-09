@@ -1,7 +1,8 @@
-<table mat-table [dataSource]="courses" class="mat-elevation-z8">
+<mat-card>
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+  <mat-toolbar color="secondary">Cursos Disponiveis</mat-toolbar>
+
+<table mat-table [dataSource]="courses" class="mat-elevation-z8">
 
   <!-- Name Column -->
   <ng-container matColumnDef="name">
@@ -20,3 +21,4 @@
   <!-- Para cada linha da tabela, cria uma nova coluna-->
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+</mat-card>
