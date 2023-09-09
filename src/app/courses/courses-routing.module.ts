@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { CoursesComponent } from './courses/courses.component';
+
+const routes: Routes = [
+  {
+    // Rota vazia, chama o "courses component"
+    path: '', component: CoursesComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
