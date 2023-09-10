@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Course } from '../model/course';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -9,15 +10,15 @@ import { Course } from '../model/course';
 export class CoursesComponent {
 
   // Inicialização *courses -> dataSource | do tipo Course* | tratamento de dados da lista
-  courses: Course[] = [
-    {
-      _id: '1',
-      name: 'Angular',
-      category: 'Front-End'
-    }
-  ];
+  courses: Course[] = [];
 
+  // Colunas da lista
   displayedColumns = ['name', 'category'];
 
-  constructor() {}
+  // Inicializando o *service*
+  constructor(private coursesService: CoursesService) {
+
+    // chamando o  metodo e passando para variavel responsavel pelo dataSource
+    this.courses = this.coursesService.list();
+  }
 }
