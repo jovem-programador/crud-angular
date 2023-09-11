@@ -9,7 +9,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent {
-  // Inicialização *courses -> dataSource | do tipo Course* | tratamento de dados da lista
+  /*
+    Inicialização *courses -> dataSource | do tipo Course* | tratamento de dados da lista
+    courses$ -> Informando que a var é um observablo do tipo Array courses
+  */
   courses$: Observable<Course[]>;
 
   // Colunas da lista
