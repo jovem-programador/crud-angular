@@ -21,6 +21,30 @@
         <!-- Ng*FOR -->
       </ng-container>
 
+      <!-- Action Column -->
+      <ng-container matColumnDef="actions">
+
+        <!-- mat-header-cell -> Header da coluna -->
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-mini-fab color="primary" aria-label="Adicionar curso">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-header-cell>
+
+        <!-- mat-cell -> Corpo da coluna -->
+        <mat-cell *matCellDef="let course">
+
+          <button mat-icon-button color="accent" aria-label="Editar curso">
+            <mat-icon>edit-note</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn" aria-label="Remover curso">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </mat-cell>
+      </ng-container>
+
       <!-- Exibindo as colunas-->
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <!-- Para cada linha da tabela, cria uma nova coluna-->
