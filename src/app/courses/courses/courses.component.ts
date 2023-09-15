@@ -4,6 +4,7 @@ import { CoursesService } from '../services/courses.service';
 import { Observable, catchError, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -23,7 +24,9 @@ export class CoursesComponent {
   // Inicializando o *service*
   constructor(
     private coursesService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
     ) {
 
     // chamando o  metodo e passando para variavel responsavel pelo dataSource
@@ -40,5 +43,10 @@ export class CoursesComponent {
     this.dialog.open(ErrorDialogComponent, {
       data: errorMsg
     });
+  }
+
+  onAdd() {
+    // Navega para a rota "new", relativa a rota atual
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 }
