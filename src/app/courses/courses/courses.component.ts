@@ -18,7 +18,7 @@ export class CoursesComponent {
   courses$: Observable<Course[]>;
 
   // Colunas da lista
-  displayedColumns = ['name', 'category'];
+  displayedColumns = ['name', 'category', 'actions'];
 
   // Inicializando o *service*
   constructor(
