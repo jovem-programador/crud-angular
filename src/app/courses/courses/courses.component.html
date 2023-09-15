@@ -27,7 +27,7 @@
         <!-- mat-header-cell -> Header da coluna -->
         <mat-header-cell *matHeaderCellDef>
           <button mat-mini-fab color="primary" aria-label="Adicionar curso">
-            <mat-icon>add</mat-icon>
+            <mat-icon (click)="onAdd()">add</mat-icon>
           </button>
         </mat-header-cell>
 
