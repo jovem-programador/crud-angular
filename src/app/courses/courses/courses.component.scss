@@ -11,3 +11,32 @@ table {
 
   background: rgba(0, 0, 0, 0.15);
 }
+
+mat-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+  max-width: 80%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+ng-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.ordemItens {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
