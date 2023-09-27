@@ -6,6 +6,7 @@
     <app-courses-list
       *ngIf="courses$ | async as courses; else loading"
       [courses]="courses"
+      (add)="onAdd()"
     ></app-courses-list>
 
     <!-- ELSE do ngIF (caso não tenha cursos, exibe o spinner)-->
