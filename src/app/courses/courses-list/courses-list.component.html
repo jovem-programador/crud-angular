@@ -1,1 +1,56 @@
-<p>courses-list works!</p>
+<mat-table [dataSource]="courses">
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Curso</mat-header-cell>
+    <mat-cell *matCellDef="let course">{{ course.name }}</mat-cell>
+    <!-- Ng*FOR para percorrer os dados-->
+  </ng-container>
+
+  <!-- Category Column -->
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef>Categoria</mat-header-cell>
+    <mat-cell *matCellDef="let course">
+      <div class="ordemItens">
+        {{ course.category }}
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Categoria do cursor"
+          fontIcon="{{ course.category | category }}"
+        ></mat-icon>
+      </div>
+    </mat-cell>
+
+    <!-- Ng*FOR -->
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="actions">
+    <!-- mat-header-cell -> Header da coluna -->
+    <th *matHeaderCellDef class="action-column-header">
+      <button
+        mat-mini-fab
+        color="primary"
+        aria-label="Adicionar curso"
+        (click)="onAdd()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </th>
+
+    <!-- mat-cell -> Corpo da coluna -->
+    <td *matCellDef="let course" class="action-column">
+      <button mat-icon-button color="accent" aria-label="Editar curso">
+        <mat-icon>edit-note</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" aria-label="Remover curso">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Exibindo as colunas-->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <!-- Para cada linha da tabela, cria uma nova coluna-->
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
