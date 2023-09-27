@@ -18,35 +18,31 @@ export class CoursesComponent {
   */
   courses$: Observable<Course[]>;
 
-  // Colunas da lista
-  displayedColumns = ['name', 'category', 'actions'];
-
   // Inicializando o *service*
   constructor(
     private coursesService: CoursesService,
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
-    ) {
-
+  ) {
     // chamando o  metodo e passando para variavel responsavel pelo dataSource
     this.courses$ = this.coursesService.list().pipe(
-      catchError(error => {
-        this.onError('Erro ao carregar cursos.')
+      catchError((error) => {
+        this.onError('Erro ao carregar cursos.');
         // of([]) retorna um observablo vazio, para parar o spinner
-        return of([])
+        return of([]);
       })
     );
   }
 
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg
+      data: errorMsg,
     });
   }
 
   onAdd() {
     // Navega para a rota "new", relativa a rota atual
-    this.router.navigate(['new'], {relativeTo: this.route});
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 }
