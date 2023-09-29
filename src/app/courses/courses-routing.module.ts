@@ -7,16 +7,22 @@ import { CourseFormComponent } from './containers/course-form/course-form.compon
 const routes: Routes = [
   {
     // Rota vazia, chama o "courses component"
-    path: '', component: CoursesComponent
+    path: '',
+    component: CoursesComponent,
   },
   {
     // Rota do formulario "Adicionar curso"
-    path: 'new', component: CourseFormComponent
-  }
+    path: 'new',
+    component: CourseFormComponent,
+  },
+  {
+    path: 'edit/:id',
+    component: CourseFormComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CoursesRoutingModule { }
+export class CoursesRoutingModule {}
