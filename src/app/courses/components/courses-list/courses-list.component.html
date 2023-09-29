@@ -1,4 +1,5 @@
 <mat-table [dataSource]="courses">
+
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Curso</mat-header-cell>
@@ -39,7 +40,7 @@
 
     <!-- mat-cell -> Corpo da coluna -->
     <td *matCellDef="let course" class="action-column">
-      <button mat-icon-button color="accent" aria-label="Editar curso">
+      <button mat-icon-button color="accent" aria-label="Editar curso" (click)="onEdit(course)">
         <mat-icon>edit-note</mat-icon>
       </button>
 

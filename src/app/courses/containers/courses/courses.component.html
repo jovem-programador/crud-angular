@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-toolbar color="secondary">Cursos Disponiveis</mat-toolbar>
+  <mat-toolbar color="secondary" class="toolbar">Cursos Disponiveis</mat-toolbar>
 
   <div class="column-flex mat-elevation-z8">
     <!-- *ngIf vai ser escrever no observablo "courses$" vai extrair as info e passar para a var courses -->
@@ -7,6 +7,7 @@
       *ngIf="courses$ | async as courses; else loading"
       [courses]="courses"
       (add)="onAdd()"
+      (edit)="onEdit($event)"
     ></app-courses-list>
 
     <!-- ELSE do ngIF (caso não tenha cursos, exibe o spinner)-->

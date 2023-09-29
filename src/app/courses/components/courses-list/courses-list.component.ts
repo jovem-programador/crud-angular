@@ -10,6 +10,7 @@ import { Course } from '../../model/course';
 export class CoursesListComponent {
   @Input() courses: Course[] = [];
   @Output() add = new EventEmitter(false);
+  @Output() edit = new EventEmitter(false);
 
   // Colunas da lista
   readonly displayedColumns = ['name', 'category', 'actions'];
@@ -17,5 +18,9 @@ export class CoursesListComponent {
   onAdd() {
     // Navega para a rota "new", relativa a rota atual
     this.add.emit(true);
+  }
+
+  onEdit(course: Course) {
+    this.edit.emit(course);
   }
 }
