@@ -27,7 +27,6 @@ export class CoursesService {
 
   // Verifica se o ID existe, chama o POST ou PUT
   save(record: Partial<Course>) {
-
     if (record._id) {
       return this.update(record);
     }
@@ -43,5 +42,10 @@ export class CoursesService {
   // PUT do banco de dados
   private update(record: Partial<Course>) {
     return this.httpClient.put<Course>(`${this.API}/${record._id}`, record);
+  }
+
+  // Delete do banco de dados
+  remove(id: string) {
+    return this.httpClient.delete(`${this.API}/${id}`);
   }
 }
