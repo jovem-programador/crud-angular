@@ -5,6 +5,7 @@ import { Observable, catchError, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-courses',
@@ -16,15 +17,21 @@ export class CoursesComponent {
     Inicialização *courses -> dataSource | do tipo Course* | tratamento de dados da lista
     courses$ -> Informando que a var é um observablo do tipo Array courses
   */
-  courses$: Observable<Course[]>;
+  courses$: Observable<Course[]> | null = null;
 
   // Inicializando o *service*
   constructor(
     private coursesService: CoursesService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
+    // chamando o  metodo e passando para variavel responsavel pelo dataSource
+    this.refresh();
+  }
+
+  refresh() {
     // chamando o  metodo e passando para variavel responsavel pelo dataSource
     this.courses$ = this.coursesService.list().pipe(
       catchError((error) => {
@@ -48,5 +55,19 @@ export class CoursesComponent {
 
   onEdit(course: Course) {
     this.router.navigate(['edit', course._id], { relativeTo: this.route });
+  }
+
+  onRemove(course: Course) {
+    this.coursesService.remove(course._id).subscribe(
+      () => {
+        this.refresh();
+        this.snackBar.open('Curso removido com sucesso!!', 'X', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+      },
+      error => this.onError('Erro ao tentar remover curso')
+    );
   }
 }
