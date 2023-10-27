@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from '../../model/course';
 import { Lesson } from '../../model/lesson';
+import { FormUtilsService } from 'src/app/shared/form/form-utils.service';
 
 @Component({
   selector: 'app-course-form',
@@ -27,7 +28,8 @@ export class CourseFormComponent {
     private service: CoursesService,
     private snackBar: MatSnackBar,
     private location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public formUtils: FormUtilsService
   ) {
     // Pegando dados da rota EDIT
     const course: Course = this.route.snapshot.data['course'];
@@ -73,14 +75,18 @@ export class CourseFormComponent {
   private createLesson(lesson: Lesson = { id: '', name: '', youtubeUrl: '' }) {
     return this.formBuilder.group({
       id: [lesson.id],
-      name: [lesson.name,
+      name: [
+        lesson.name,
         Validators.required,
         Validators.minLength(5),
-        Validators.maxLength(100)],
-      youtubeUrl: [lesson.youtubeUrl,
+        Validators.maxLength(100),
+      ],
+      youtubeUrl: [
+        lesson.youtubeUrl,
         Validators.required,
         Validators.minLength(10),
-        Validators.maxLength(11)],
+        Validators.maxLength(11),
+      ],
     });
   }
 
@@ -105,62 +111,18 @@ export class CourseFormComponent {
   onSubmit() {
     if (this.form.valid) {
       this.service.save(this.form.value).subscribe(
-        (result) => this.onSucess(),
+        (result) => this.formUtils.onSucess(),
         (error) => {
-          this.onError();
+          this.formUtils.onError();
         }
       );
     } else {
-      alert('Form invalido');
+      this.formUtils.validateAllFormFields(this.form);
     }
   }
 
   // Botão de cancelar
   onCancel() {
     this.location.back();
-  }
-
-  // Mensagem de sucesso
-  onSucess() {
-    this.snackBar.open('Curso salvo com sucesso!!', '', { duration: 5000 });
-    this.onCancel();
-  }
-
-  // Mensagem de error
-  onError() {
-    this.snackBar.open('Error ao salvar curso.', '', { duration: 5000 });
-  }
-
-  // Validação do formulario
-  getErrorMessage(fieldName: string) {
-    const field = this.form.get(fieldName);
-
-    if (field?.hasError('required')) {
-      return 'Campo obrigatorio';
-    }
-
-    if (field?.hasError('minlength')) {
-      const requiredLength = field.errors
-        ? field.errors['minlength']['requiredLength']
-        : 5;
-
-      return `Tamanho minimo precisa ser de ${requiredLength} caracteres`;
-    }
-
-    if (field?.hasError('maxlength')) {
-      const requiredLength = field.errors
-        ? field.errors['maxlength']['requiredLength']
-        : 250;
-
-      return `Tamanho máximo exedido de ${requiredLength} caracteres`;
-    }
-
-    return 'Campo invalido';
-  }
-
-  isFormArrayRequired() {
-    const lessons = this.form.get('lessons') as UntypedFormArray;
-    return !lessons.valid && lessons.hasError('required') && lessons.touched;
-
   }
 }
